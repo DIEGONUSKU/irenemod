@@ -1,7 +1,8 @@
 package net.irene.amorcito;
 
 import com.mojang.logging.LogUtils;
-import net.minecraft.world.level.block.Blocks;
+import net.irene.amorcito.item.ModCreativeModTabs;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -13,21 +14,27 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.slf4j.Logger;
+import net.irene.amorcito.item.ModItems;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod(amorcito.MODID)
-public class amorcito
+@Mod(Amorcito.MODID)
+public class Amorcito
 {
     // Define mod id in a common place for everything to reference
     public static final String MODID = "amorcitoid";
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    public amorcito()
+    public Amorcito()
     {
+
+
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        ModCreativeModTabs.register(modEventBus);
+
+        ModItems.register(modEventBus);
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
@@ -49,6 +56,11 @@ public class amorcito
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
+        if(event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
+            event.accept(ModItems.BOWTIEHEART);
+        } if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+            event.accept(ModItems.HEARTFRAGMENT);
+        }
 
     }
 
