@@ -19,7 +19,10 @@ public class ModCreativeModTabs {
             .title(Component.translatable("creativetab.amorcito_tab"))
             .displayItems(((pParameters, pOutput) -> {
                 pOutput.accept(ModItems.BOWTIEHEART.get());
+                pOutput.accept(ModItems.DEEPHEART.get());
+                pOutput.accept(ModItems.HEARTCORE.get());
                 pOutput.accept(ModItems.HEARTFRAGMENT.get());
+                pOutput.accept(ModItems.PURIFIEDDEEPHEART.get());
             }))
             .build());
 

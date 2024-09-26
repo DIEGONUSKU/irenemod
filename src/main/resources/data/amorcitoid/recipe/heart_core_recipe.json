@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "W": {
+      "item": "minecraft:purified_deep_heart"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "pattern": [
+    "D#D",
+    "#W#",
+    "D#D"
+  ],
+  "result": {
+    "id": "amorcitoid:heart_core",
+    "count": 1
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 1600,
+  "experience": 5,
+  "ingredient": {
+    "item": "amorcitoid:deep_heart"
+  },
+  "result": {
+    "id": "amorcitoid:purified_deep_heart"
+  }
+}

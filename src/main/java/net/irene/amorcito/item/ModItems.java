@@ -14,7 +14,16 @@ public class ModItems {
     public static final RegistryObject<Item> BOWTIEHEART = ITEMS.register("bow_tie_heart",
             () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> DEEPHEART = ITEMS.register("deep_heart",
+            () -> new Item(new Item.Properties()));
+
     public static final RegistryObject<Item> HEARTFRAGMENT = ITEMS.register("heart_fragment",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> HEARTCORE = ITEMS.register("heart_core",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> PURIFIEDDEEPHEART = ITEMS.register("purified_deep_heart",
             () -> new Item(new Item.Properties()));
 
     public static void register(IEventBus eventBus) {

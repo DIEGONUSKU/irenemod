@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "amorcitoid:heart_fragment"
+    },
+    "W": {
+      "item": "amorcitoid:heart_core"
+    }
+  },
+  "pattern": [
+    " # ",
+    "#W#",
+    " # "
+  ],
+  "result": {
+    "id": "amorcitoid:bow_tie_heart",
+    "count": 1
+  }
+}

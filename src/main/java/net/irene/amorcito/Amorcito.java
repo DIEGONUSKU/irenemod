@@ -59,9 +59,14 @@ public class Amorcito
         if(event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             event.accept(ModItems.BOWTIEHEART);
         } if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+            event.accept(ModItems.DEEPHEART);
+        } if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
             event.accept(ModItems.HEARTFRAGMENT);
+        } if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+            event.accept(ModItems.HEARTCORE);
+        }if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+            event.accept(ModItems.PURIFIEDDEEPHEART);
         }
-
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
