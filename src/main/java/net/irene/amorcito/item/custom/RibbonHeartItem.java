@@ -1,5 +1,6 @@
-package net.irene.amorcito.item;
+package net.irene.amorcito.item.custom;
 
+import net.irene.amorcito.particle.ModParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -33,6 +34,8 @@ public class RibbonHeartItem extends Item {
             float pitch = 0.5f;
 
             pLevel.playSound(pPlayer, soundOrigin, SoundEvents.PLAYER_LEVELUP, SoundSource.BLOCKS, volume, pitch);
+
+            this.addParticles(pPlayer, pLevel);
         }
 
         if(!pLevel.isClientSide() && pUsedHand == InteractionHand.MAIN_HAND){
@@ -74,5 +77,23 @@ public class RibbonHeartItem extends Item {
         playerZpos = (int) Math.round(pPlayer.position().z);
 
         return new BlockPos(playerXpos, playerYpos, playerZpos);
+    }
+
+    private void addParticles(Player pPlayer, Level pLevel) {
+        double playerXpos = pPlayer.position().x;
+        double playerYpos = pPlayer.position().y;
+        double playerZpos = pPlayer.position().z;
+
+        for (int i = 0; i < 720; i++) {
+            if (i % 15 == 0) {
+                pLevel.addParticle(ModParticles.HEART_PARTICLES.get(),
+                        playerXpos,
+                        playerYpos,
+                        playerZpos,
+                        Math.cos(i) * 0.4d,
+                        i/270d,
+                        Math.sin(i) * 0.4d);
+            }
+        }
     }
 }

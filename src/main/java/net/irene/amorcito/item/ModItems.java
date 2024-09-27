@@ -1,6 +1,7 @@
 package net.irene.amorcito.item;
 
 import net.irene.amorcito.Amorcito;
+import net.irene.amorcito.item.custom.RibbonHeartItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;

@@ -2,6 +2,7 @@ package net.irene.amorcito;
 
 import com.mojang.logging.LogUtils;
 import net.irene.amorcito.item.ModCreativeModTabs;
+import net.irene.amorcito.particle.ModParticles;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -16,7 +17,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 import net.irene.amorcito.item.ModItems;
-import net.irene.amorcito.item.RibbonHeartItem;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(Amorcito.MODID)
@@ -36,6 +36,8 @@ public class Amorcito
         ModCreativeModTabs.register(modEventBus);
 
         ModItems.register(modEventBus);
+
+        ModParticles.register(modEventBus);
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
