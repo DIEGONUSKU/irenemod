@@ -15,10 +15,10 @@ public class ModCreativeModTabs {
 
     public static final RegistryObject<CreativeModeTab> AMORCITO_TAB = CREATIVE_MODE_TABS.register("amorcito_tab",
     () -> CreativeModeTab.builder()
-            .icon(() -> new ItemStack(ModItems.BOWTIEHEART.get()))
+            .icon(() -> new ItemStack(ModItems.RIBBONHEART.get()))
             .title(Component.translatable("creativetab.amorcito_tab"))
             .displayItems(((pParameters, pOutput) -> {
-                pOutput.accept(ModItems.BOWTIEHEART.get());
+                pOutput.accept(ModItems.RIBBONHEART.get());
                 pOutput.accept(ModItems.DEEPHEART.get());
                 pOutput.accept(ModItems.HEARTCORE.get());
                 pOutput.accept(ModItems.HEARTFRAGMENT.get());

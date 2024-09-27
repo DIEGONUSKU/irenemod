@@ -16,6 +16,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 import net.irene.amorcito.item.ModItems;
+import net.irene.amorcito.item.RibbonHeartItem;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(Amorcito.MODID)
@@ -57,7 +58,7 @@ public class Amorcito
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if(event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
-            event.accept(ModItems.BOWTIEHEART);
+            event.accept(ModItems.RIBBONHEART);
         } if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
             event.accept(ModItems.DEEPHEART);
         } if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {

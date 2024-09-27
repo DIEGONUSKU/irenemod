@@ -11,8 +11,10 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, Amorcito.MODID);
 
-    public static final RegistryObject<Item> BOWTIEHEART = ITEMS.register("bow_tie_heart",
-            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> RIBBONHEART = ITEMS.register("ribbon_heart",
+            () -> new RibbonHeartItem(new Item.Properties()
+                    .durability(1)
+                    .stacksTo(1)));
 
     public static final RegistryObject<Item> DEEPHEART = ITEMS.register("deep_heart",
             () -> new Item(new Item.Properties()));

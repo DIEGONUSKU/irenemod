@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "amorcitoid:item/bow_tie_heart"
+    "layer0": "amorcitoid:item/ribbon_heart"
   }
 }
