@@ -27,7 +27,9 @@ public class ModBlocks {
                     BlockBehaviour.Properties.ofFullCopy(Blocks.ALLIUM).noCollission().noOcclusion()));
 
     public static RegistryObject<Block> POTTED_KALANCHOE = BLOCKS.register("potted_kalanchoe",
-            ()-> new FlowerPotBlock(() -> ((FlowerPotBlock) Blocks.FLOWER_POT), ModBlocks.KALANCHOE, BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM)));
+            ()-> new FlowerPotBlock(() -> ((FlowerPotBlock) Blocks.FLOWER_POT),
+                    ModBlocks.KALANCHOE,
+                    BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM)));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

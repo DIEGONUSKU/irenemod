@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "amorcito:kalanchoe"
+          "name": "amorcitoid:kalanchoe"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "amorcito:blocks/kalanchoe"
+  "random_sequence": "amorcitoid:blocks/kalanchoe"
 }
