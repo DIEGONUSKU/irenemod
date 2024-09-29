@@ -1,9 +1,12 @@
 package net.irene.amorcito;
 
 import com.mojang.logging.LogUtils;
+import net.irene.amorcito.block.ModBlocks;
 import net.irene.amorcito.item.ModCreativeModTabs;
 import net.irene.amorcito.particle.ModParticles;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -34,10 +37,9 @@ public class Amorcito
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ModCreativeModTabs.register(modEventBus);
-
         ModItems.register(modEventBus);
-
         ModParticles.register(modEventBus);
+        ModBlocks.register(modEventBus);
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
@@ -52,23 +54,24 @@ public class Amorcito
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event)
-    {
-
+    private void commonSetup(final FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.KALANCHOE.getId(), ModBlocks.POTTED_KALANCHOE);
+        });
     }
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if(event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
-            event.accept(ModItems.RIBBONHEART);
+            event.accept(ModItems.RIBBON_HEART);
         } if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            event.accept(ModItems.DEEPHEART);
+            event.accept(ModItems.DEEP_HEART);
         } if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            event.accept(ModItems.HEARTFRAGMENT);
+            event.accept(ModItems.HEART_FRAGMENT);
         } if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            event.accept(ModItems.HEARTCORE);
+            event.accept(ModItems.HEART_CORE);
         }if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            event.accept(ModItems.PURIFIEDDEEPHEART);
+            event.accept(ModItems.PURIFIED_DEEP_HEART);
         }
     }
 

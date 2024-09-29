@@ -4,5 +4,8 @@
   "creativetab.amorcito_tab": "Amorcito",
   "item.amorcitoid.deep_heart": "Deep heart",
   "item.amorcitoid.heart_core": "Heart core",
-  "item.amorcitoid.purified_deep_heart": "Purified deep heart"
+  "item.amorcitoid.purified_deep_heart": "Purified deep heart",
+  "block.amorcitoid.potted_kalanchoe": "Potted kalanchoe",
+  "item.amorcitoid.kalanchoe": "Kalanchoe",
+  "block.amorcitoid.kalanchoe": "Kalanchoe"
 }
