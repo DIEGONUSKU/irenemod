@@ -2,8 +2,11 @@ package net.irene.amorcito;
 
 import com.mojang.logging.LogUtils;
 import net.irene.amorcito.block.ModBlocks;
+import net.irene.amorcito.entity.ModEntities;
+import net.irene.amorcito.entity.client.PiruRenderer;
 import net.irene.amorcito.item.ModCreativeModTabs;
 import net.irene.amorcito.particle.ModParticles;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
@@ -16,10 +19,13 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 import net.irene.amorcito.item.ModItems;
+
+import javax.swing.text.html.parser.Entity;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(Amorcito.MODID)
@@ -40,6 +46,7 @@ public class Amorcito
         ModItems.register(modEventBus);
         ModParticles.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModEntities.register(modEventBus);
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
@@ -84,6 +91,9 @@ public class Amorcito
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
-
+        @SubscribeEvent
+        public static void onClientSetup (FMLClientSetupEvent event) {
+            EntityRenderers.register(ModEntities.PIRU.get(), PiruRenderer::new);
+        }
     }
 }

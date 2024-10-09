@@ -25,6 +25,7 @@ public class ModCreativeModTabs {
                 pOutput.accept(ModItems.HEART_FRAGMENT.get());
                 pOutput.accept(ModItems.PURIFIED_DEEP_HEART.get());
                 pOutput.accept(ModBlocks.KALANCHOE.get());
+                pOutput.accept(ModItems.PIRU_SPAWN_EGG.get());
             }))
             .build());
 
