@@ -16,7 +16,7 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<PiruEntity>> PIRU =
             ENTITY_TYPES.register("piru", () -> EntityType.Builder.of(PiruEntity::new, MobCategory.CREATURE)
-                    .sized(0.6f, 0.5f).build("piru"));
+                    .sized(0.6f, 0.8f).build("piru"));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);
