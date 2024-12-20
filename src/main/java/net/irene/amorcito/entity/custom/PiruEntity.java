@@ -1,8 +1,11 @@
 package net.irene.amorcito.entity.custom;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -18,6 +21,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraftforge.unsafe.UnsafeFieldAccess;
 import org.checkerframework.checker.units.qual.A;
@@ -56,10 +63,10 @@ public class PiruEntity extends TamableAnimal {
         return deltaX != 0 || deltaZ != 0;
     }
 
+    //Getters
     public float getLimbSwingAmount() {
         return this.limbSwingAmount;
     }
-
     public float getLimbSwing() {
         return this.limbSwing;
     }
@@ -87,9 +94,7 @@ public class PiruEntity extends TamableAnimal {
     private void setUpAnimationStates() {
         if(isOrderedToSit()) {
             this.setPose(Pose.SITTING);
-            //idleAnimationState.stop();
         } else {
-            //breadAnimationState.ifStarted(AnimationState::stop);
             this.setPose(Pose.STANDING);
         }
 
@@ -103,28 +108,18 @@ public class PiruEntity extends TamableAnimal {
         }
     }
 
-//    @Override
-//    protected void updateWalkAnimation(float pPartialTick)  {
-//        float f;
-//        f = Math.min(pPartialTick, 0.5f);
-//
-//        this.piruWalkAnimation.update(f, 0.25f);
-//    }
-
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.1, Ingredient.of(Items.CHICKEN), false));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.15));
-        this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1.0, 10.0F, 5.0F));
-        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 5f));
-
-
+        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 5f));
+        this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0, 10.0F, 5.0F));
     }
 
-
+    //Interact with raw chicken, resulting in tame, or sitting if piru has owner
     @Override
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
@@ -132,7 +127,7 @@ public class PiruEntity extends TamableAnimal {
         if (!this.isTame() && item == Items.CHICKEN) {
             itemstack.consume(1, pPlayer);
             this.tryToTame(pPlayer);
-            return InteractionResult.SUCCESS;
+            return InteractionResult.CONSUME;
         } else if (this.isTame() && isOwnedBy(pPlayer)) {
             if (this.getPose() == Pose.STANDING) {
                 breadAnimationState.start(this.tickCount);
@@ -140,7 +135,6 @@ public class PiruEntity extends TamableAnimal {
                 breadAnimationState.stop();
                 unBreadAnimationState.start(this.tickCount);
             }
-
             setOrderedToSit(!isOrderedToSit());
             return InteractionResult.sidedSuccess(this.level().isClientSide());
 
@@ -148,6 +142,7 @@ public class PiruEntity extends TamableAnimal {
         return InteractionResult.PASS;
     }
 
+    //Tame attempt, called when interacting with raw chicken
     private void tryToTame(Player pPlayer) {
         if (this.random.nextInt(3) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, pPlayer)) {
             this.tame(pPlayer);
@@ -164,6 +159,7 @@ public class PiruEntity extends TamableAnimal {
         return pStack.is(Items.CHICKEN);
     }
 
+    //Creates attributes
     public static AttributeSupplier.Builder createAttributes(){
         return Animal.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH, 10)
@@ -177,16 +173,15 @@ public class PiruEntity extends TamableAnimal {
         return null;
     }
 
+    //Get the sounds
     @Override
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
         return SoundEvents.CAT_HURT;
     }
-
     @Override
     protected @org.jetbrains.annotations.Nullable SoundEvent getDeathSound() {
         return SoundEvents.CAT_DEATH;
     }
-
     @Override
     protected @org.jetbrains.annotations.Nullable SoundEvent getAmbientSound() {
         return SoundEvents.CAT_AMBIENT;

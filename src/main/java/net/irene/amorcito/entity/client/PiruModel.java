@@ -128,7 +128,7 @@ public class PiruModel<T extends PiruEntity> extends HierarchicalModel<T> {
 		this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
 
 		//if (entity.getPose() == Pose.STANDING) {
-		this.animateWalk(PiruAnimation.WALK, limbSwing * 2f, limbSwingAmount * 2f, 1.5f, 2f);
+		this.animateWalk(PiruAnimation.WALK, limbSwing * 3f, limbSwingAmount * 4f, 0.6f, 2f);
 		this.animate(entity.idleAnimationState, PiruAnimation.IDLE, ageInTicks, 1f);
 		this.animate(entity.unBreadAnimationState, PiruAnimation.BREADMODE2, ageInTicks, 1f);
 		//} else if (entity.getPose() == Pose.SITTING) {
@@ -139,7 +139,7 @@ public class PiruModel<T extends PiruEntity> extends HierarchicalModel<T> {
 	@Override
 	protected void animateWalk(AnimationDefinition pAnimationDefinition, float pLimbSwing, float pLimbSwingAmount, float pMaxAnimationSpeed, float pAnimationScaleFactor) {
 		long i = (long)(pLimbSwing * 50.0F * pMaxAnimationSpeed);
-		float f = Math.min(pLimbSwingAmount * pAnimationScaleFactor, 2.0F);
+		float f = Math.min(pLimbSwingAmount * pAnimationScaleFactor, 3.0F);
 		KeyframeAnimations.animate(this, pAnimationDefinition, i, f, ANIMATION_VECTOR_CACHE);
 	}
 

@@ -17,7 +17,6 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
     }
     @Override
     protected void generate() {
-        System.out.println("generate");
         dropSelf(ModBlocks.KALANCHOE.get());
         this.dropPottedContents(ModBlocks.POTTED_KALANCHOE.get());
     }
