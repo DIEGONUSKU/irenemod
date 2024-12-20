@@ -37,13 +37,47 @@ public class PiruEntity extends TamableAnimal {
 
     public final AnimationState breadAnimationState = new AnimationState();
 
+    public final AnimationState unBreadAnimationState = new AnimationState();
+
     public final AnimationState idleAnimationState = new AnimationState();
 
     private int idleAnimationTimeout = 0;
 
+    private float limbSwingAmount;
+
+    private float limbSwing;
+
+    private boolean isMoving() {
+        //Checks whether the entity is moving
+        double deltaX = this.getDeltaMovement().x();
+        double deltaZ = this.getDeltaMovement().z();
+
+        // If either of the horizontal components is non-zero, the entity is moving
+        return deltaX != 0 || deltaZ != 0;
+    }
+
+    public float getLimbSwingAmount() {
+        return this.limbSwingAmount;
+    }
+
+    public float getLimbSwing() {
+        return this.limbSwing;
+    }
+
     @Override
     public void tick() {
         super.tick();
+
+        if(this.isMoving()) {
+            //Pass correct limbSwing to EntityModel
+            double deltaX = this.getDeltaMovement().x();
+            double deltaZ = this.getDeltaMovement().z();
+            double velocity = Math.sqrt(deltaX * deltaX + deltaZ * deltaZ); // Get horizontal movement velocity
+            this.limbSwingAmount = (float) Math.min(velocity, 1.0);  // Clamp to a maximum value for smoothness
+            this.limbSwing += 0.5F;  // Increase limbSwing with each tick when moving
+        } else {
+            this.limbSwingAmount = 0;
+        }
 
         if(this.level().isClientSide()) {
             setUpAnimationStates();
@@ -51,7 +85,6 @@ public class PiruEntity extends TamableAnimal {
     }
 
     private void setUpAnimationStates() {
-        breadAnimationState.animateWhen(isOrderedToSit(), this.tickCount);
         if(isOrderedToSit()) {
             this.setPose(Pose.SITTING);
             //idleAnimationState.stop();
@@ -59,6 +92,7 @@ public class PiruEntity extends TamableAnimal {
             //breadAnimationState.ifStarted(AnimationState::stop);
             this.setPose(Pose.STANDING);
         }
+
         if (this.getPose() == Pose.STANDING) {
             if(idleAnimationTimeout<= 0) {
                 this.idleAnimationTimeout = this.random.nextInt(40) + 80;
@@ -69,27 +103,24 @@ public class PiruEntity extends TamableAnimal {
         }
     }
 
-    @Override
-    protected void updateWalkAnimation(float pPartialTick)  {
-        float f;
-        if(this.getPose() == Pose.STANDING) {
-            f = Math.min(pPartialTick * 4f, 1f);
-        } else {
-            f = 0f;
-        }
-
-        this.piruWalkAnimation.update(f, 0.25f);
-    }
+//    @Override
+//    protected void updateWalkAnimation(float pPartialTick)  {
+//        float f;
+//        f = Math.min(pPartialTick, 0.5f);
+//
+//        this.piruWalkAnimation.update(f, 0.25f);
+//    }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new TemptGoal(this, 1.1, Ingredient.of(Items.CHICKEN), false));
-        this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1.0, 10.0F, 5.0F));
-        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.15));
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 5f));
-        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(2, new TemptGoal(this, 1.1, Ingredient.of(Items.CHICKEN), false));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.15));
+        this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1.0, 10.0F, 5.0F));
+        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 5f));
+
 
     }
 
@@ -103,8 +134,16 @@ public class PiruEntity extends TamableAnimal {
             this.tryToTame(pPlayer);
             return InteractionResult.SUCCESS;
         } else if (this.isTame() && isOwnedBy(pPlayer)) {
+            if (this.getPose() == Pose.STANDING) {
+                breadAnimationState.start(this.tickCount);
+            } else {
+                breadAnimationState.stop();
+                unBreadAnimationState.start(this.tickCount);
+            }
+
             setOrderedToSit(!isOrderedToSit());
             return InteractionResult.sidedSuccess(this.level().isClientSide());
+
         }
         return InteractionResult.PASS;
     }
@@ -114,7 +153,6 @@ public class PiruEntity extends TamableAnimal {
             this.tame(pPlayer);
             this.navigation.stop();
             this.setTarget(null);
-            this.setOrderedToSit(true);
             this.level().broadcastEntityEvent(this, (byte)7);
         } else {
             this.level().broadcastEntityEvent(this, (byte)6);
@@ -129,7 +167,7 @@ public class PiruEntity extends TamableAnimal {
     public static AttributeSupplier.Builder createAttributes(){
         return Animal.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH, 10)
-                .add(Attributes.MOVEMENT_SPEED, 0.1f)
+                .add(Attributes.MOVEMENT_SPEED, 0.25f)
                 .add(Attributes.FOLLOW_RANGE, 18D);
     }
 

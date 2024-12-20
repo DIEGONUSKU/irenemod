@@ -1,11 +1,11 @@
-// Made with Blockbench 4.11.1
+// Made with Blockbench 4.11.2
 // Exported for Minecraft version 1.17 or later with Mojang mappings
 // Paste this class into your mod and generate all required imports
 
 
-public class piru<T extends Entity> extends EntityModel<T> {
+public class piru_1<T extends Entity> extends EntityModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "piru"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "piru_1"), "main");
 	private final ModelPart piru;
 	private final ModelPart LeftFrontLeg;
 	private final ModelPart Tail;
@@ -18,7 +18,7 @@ public class piru<T extends Entity> extends EntityModel<T> {
 	private final ModelPart Neck;
 	private final ModelPart Face;
 
-	public piru(ModelPart root) {
+	public piru_1(ModelPart root) {
 		this.piru = root.getChild("piru");
 		this.LeftFrontLeg = this.piru.getChild("LeftFrontLeg");
 		this.Tail = this.piru.getChild("Tail");

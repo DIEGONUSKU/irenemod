@@ -5,19 +5,25 @@ package net.irene.amorcito.entity.client;// Made with Blockbench 4.11.1
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.irene.amorcito.entity.animations.ModAnimationDefinitions;
+import net.irene.amorcito.Amorcito;
 import net.irene.amorcito.entity.custom.PiruEntity;
+import net.minecraft.client.animation.AnimationDefinition;
+import net.minecraft.client.animation.KeyframeAnimations;
 import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Pose;
+import org.jline.utils.Log;
+import org.joml.Vector3f;
 
-public class PiruModel<T extends Entity> extends HierarchicalModel<T> {
+public class PiruModel<T extends PiruEntity> extends HierarchicalModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	//public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "piru"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Amorcito.MODID, "pirumodel"), "main");
 	private final ModelPart piru;
 	private final ModelPart LeftFrontLeg;
 	private final ModelPart Tail;
@@ -114,22 +120,32 @@ public class PiruModel<T extends Entity> extends HierarchicalModel<T> {
 		return LayerDefinition.create(meshdefinition, 128, 128);
 	}
 
+	private static final Vector3f ANIMATION_VECTOR_CACHE = new Vector3f();
+
 	@Override
-	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(PiruEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
 
-		if (entity.getPose() == Pose.STANDING) {
-			this.animateWalk(ModAnimationDefinitions.walk, limbSwing, limbSwingAmount, 1f, 1f);
-			this.animate(((PiruEntity) entity).idleAnimationState, ModAnimationDefinitions.idle, ageInTicks, 1f);
-		} else if (entity.getPose() == Pose.SITTING) {
-			this.animate(((PiruEntity) entity).breadAnimationState, ModAnimationDefinitions.breadMode, ageInTicks, 1f);
-		}
+		//if (entity.getPose() == Pose.STANDING) {
+		this.animateWalk(PiruAnimation.WALK, limbSwing * 2f, limbSwingAmount * 2f, 1.5f, 2f);
+		this.animate(entity.idleAnimationState, PiruAnimation.IDLE, ageInTicks, 1f);
+		this.animate(entity.unBreadAnimationState, PiruAnimation.BREADMODE2, ageInTicks, 1f);
+		//} else if (entity.getPose() == Pose.SITTING) {
+		this.animate(entity.breadAnimationState, PiruAnimation.BREADMODE, ageInTicks, 1f);
+		//}
+	}
+
+	@Override
+	protected void animateWalk(AnimationDefinition pAnimationDefinition, float pLimbSwing, float pLimbSwingAmount, float pMaxAnimationSpeed, float pAnimationScaleFactor) {
+		long i = (long)(pLimbSwing * 50.0F * pMaxAnimationSpeed);
+		float f = Math.min(pLimbSwingAmount * pAnimationScaleFactor, 2.0F);
+		KeyframeAnimations.animate(this, pAnimationDefinition, i, f, ANIMATION_VECTOR_CACHE);
 	}
 
 	private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float AgeInTicks) {
-		pNetHeadYaw = Mth.clamp(pNetHeadYaw, -15.0f, 15.0f);
-		pHeadPitch = Mth.clamp(pHeadPitch, -10f, 20.0f);
+		pNetHeadYaw = Mth.clamp(pNetHeadYaw, -50.0f, 35.0f);
+		pHeadPitch = Mth.clamp(pHeadPitch, -35f, 50.0f);
 
 		this.Face.yRot = pNetHeadYaw * (float) (Math.PI / 180.0);
 		this.Face.xRot = pHeadPitch * (float) (Math.PI / 180.0);

@@ -2,7 +2,6 @@ package net.irene.amorcito.event;
 
 import net.irene.amorcito.Amorcito;
 import net.irene.amorcito.entity.ModEntities;
-import net.irene.amorcito.entity.client.ModModelLayers;
 import net.irene.amorcito.entity.client.PiruModel;
 import net.irene.amorcito.entity.custom.PiruEntity;
 import net.irene.amorcito.particle.ModParticles;
