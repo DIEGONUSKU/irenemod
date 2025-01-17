@@ -131,7 +131,9 @@ public class PiruEntity extends TamableAnimal {
         } else if (this.isTame() && isOwnedBy(pPlayer)) {
             if (this.getPose() == Pose.STANDING) {
                 breadAnimationState.start(this.tickCount);
+                this.setPose(Pose.SITTING);
             } else {
+                this.setPose(Pose.STANDING);
                 breadAnimationState.stop();
                 unBreadAnimationState.start(this.tickCount);
             }
