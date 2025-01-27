@@ -33,7 +33,7 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     private ItemModelBuilder simpleBlockItem(RegistryObject<? extends Block> item) {
         return withExistingParent(item.getId().getPath(),
-                ResourceLocation.parse("item/generated")).texture("layer0",
-                ResourceLocation.fromNamespaceAndPath(Amorcito.MODID,"item/" + item.getId().getPath()));
+                ResourceLocation.tryParse("item/generated")).texture("layer0",
+                new ResourceLocation(Amorcito.MODID,"item/" + item.getId().getPath()));
     }
 }

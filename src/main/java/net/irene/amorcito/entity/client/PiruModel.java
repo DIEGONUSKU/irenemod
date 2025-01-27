@@ -23,7 +23,7 @@ import org.joml.Vector3f;
 
 public class PiruModel<T extends PiruEntity> extends HierarchicalModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Amorcito.MODID, "pirumodel"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(Amorcito.MODID, "pirumodel"), "main");
 	private final ModelPart piru;
 	private final ModelPart LeftFrontLeg;
 	private final ModelPart Tail;
@@ -152,8 +152,8 @@ public class PiruModel<T extends PiruEntity> extends HierarchicalModel<T> {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int pColor) {
-		piru.render(poseStack, vertexConsumer, packedLight, packedOverlay, pColor);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+		piru.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override

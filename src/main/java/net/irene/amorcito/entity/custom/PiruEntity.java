@@ -1,11 +1,8 @@
 package net.irene.amorcito.entity.custom;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -13,7 +10,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -21,13 +17,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.PathType;
-import net.minecraftforge.unsafe.UnsafeFieldAccess;
-import org.checkerframework.checker.units.qual.A;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraftforge.event.ForgeEventFactory;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -35,9 +26,11 @@ import javax.annotation.Nullable;
 public class PiruEntity extends TamableAnimal {
     public PiruEntity(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.setTame(false, false);
-        this.setPathfindingMalus(PathType.POWDER_SNOW, -1.0F);
-        this.setPathfindingMalus(PathType.DANGER_POWDER_SNOW, -1.0F);
+        this.setTame(false);
+        this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, -1.0F);
+        this.setPathfindingMalus(BlockPathTypes.DANGER_POWDER_SNOW, -1.0F);
+        this.setOrderedToSit(false);
+        this.setPose(Pose.STANDING);
     }
 
     public final WalkAnimationState piruWalkAnimation = new WalkAnimationState();
@@ -54,15 +47,6 @@ public class PiruEntity extends TamableAnimal {
 
     private float limbSwing;
 
-    private boolean isMoving() {
-        //Checks whether the entity is moving
-        double deltaX = this.getDeltaMovement().x();
-        double deltaZ = this.getDeltaMovement().z();
-
-        // If either of the horizontal components is non-zero, the entity is moving
-        return deltaX != 0 || deltaZ != 0;
-    }
-
     //Getters
     public float getLimbSwingAmount() {
         return this.limbSwingAmount;
@@ -75,28 +59,12 @@ public class PiruEntity extends TamableAnimal {
     public void tick() {
         super.tick();
 
-        if(this.isMoving()) {
-            //Pass correct limbSwing to EntityModel
-            double deltaX = this.getDeltaMovement().x();
-            double deltaZ = this.getDeltaMovement().z();
-            double velocity = Math.sqrt(deltaX * deltaX + deltaZ * deltaZ); // Get horizontal movement velocity
-            this.limbSwingAmount = (float) Math.min(velocity, 1.0);  // Clamp to a maximum value for smoothness
-            this.limbSwing += 0.5F;  // Increase limbSwing with each tick when moving
-        } else {
-            this.limbSwingAmount = 0;
-        }
-
         if(this.level().isClientSide()) {
             setUpAnimationStates();
         }
     }
 
     private void setUpAnimationStates() {
-        if(isOrderedToSit()) {
-            this.setPose(Pose.SITTING);
-        } else {
-            this.setPose(Pose.STANDING);
-        }
 
         if (this.getPose() == Pose.STANDING) {
             if(idleAnimationTimeout<= 0) {
@@ -116,7 +84,7 @@ public class PiruEntity extends TamableAnimal {
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.15));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 5f));
-        this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0, 10.0F, 5.0F));
+        this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0, 10.0F, 5.0F, false));
     }
 
     //Interact with raw chicken, resulting in tame, or sitting if piru has owner
@@ -125,10 +93,14 @@ public class PiruEntity extends TamableAnimal {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         Item item = itemstack.getItem();
         if (!this.isTame() && item == Items.CHICKEN) {
-            itemstack.consume(1, pPlayer);
+            itemstack.shrink(1);
             this.tryToTame(pPlayer);
             return InteractionResult.CONSUME;
         } else if (this.isTame() && isOwnedBy(pPlayer)) {
+            this.setOrderedToSit(!this.isOrderedToSit());
+            this.jumping = false;
+            this.navigation.stop();
+            this.setTarget((LivingEntity)null);
             if (this.getPose() == Pose.STANDING) {
                 breadAnimationState.start(this.tickCount);
                 this.setPose(Pose.SITTING);
@@ -137,19 +109,21 @@ public class PiruEntity extends TamableAnimal {
                 breadAnimationState.stop();
                 unBreadAnimationState.start(this.tickCount);
             }
-            setOrderedToSit(!isOrderedToSit());
-            return InteractionResult.sidedSuccess(this.level().isClientSide());
+            return InteractionResult.SUCCESS;
 
+        } else {
+          return InteractionResult.PASS;
         }
-        return InteractionResult.PASS;
     }
 
     //Tame attempt, called when interacting with raw chicken
     private void tryToTame(Player pPlayer) {
-        if (this.random.nextInt(3) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, pPlayer)) {
+        if (this.random.nextInt(3) == 0 && !ForgeEventFactory.onAnimalTame(this, pPlayer)) {
+            this.setPose(Pose.SITTING);
             this.tame(pPlayer);
             this.navigation.stop();
-            this.setTarget(null);
+            this.setTarget((LivingEntity)null);
+            this.setOrderedToSit(true);
             this.level().broadcastEntityEvent(this, (byte)7);
         } else {
             this.level().broadcastEntityEvent(this, (byte)6);

@@ -24,12 +24,12 @@ public class ModBlocks {
     public static RegistryObject<Block> KALANCHOE = registerBlock("kalanchoe",
             ()-> new FlowerBlock(MobEffects.ABSORPTION,
                     300,
-                    BlockBehaviour.Properties.ofFullCopy(Blocks.ALLIUM).noCollission().noOcclusion()));
+                    BlockBehaviour.Properties.copy(Blocks.ALLIUM).noCollission().noOcclusion()));
 
     public static RegistryObject<Block> POTTED_KALANCHOE = BLOCKS.register("potted_kalanchoe",
             ()-> new FlowerPotBlock(() -> ((FlowerPotBlock) Blocks.FLOWER_POT),
                     ModBlocks.KALANCHOE,
-                    BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM)));
+                    BlockBehaviour.Properties.copy(Blocks.POTTED_ALLIUM)));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

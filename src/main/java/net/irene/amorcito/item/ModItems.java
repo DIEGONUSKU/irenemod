@@ -16,7 +16,6 @@ public class ModItems {
 
     public static final RegistryObject<Item> RIBBON_HEART = ITEMS.register("ribbon_heart",
             () -> new RibbonHeartItem(new Item.Properties()
-                    .durability(1)
                     .stacksTo(1)));
 
     public static final RegistryObject<Item> DEEP_HEART = ITEMS.register("deep_heart",

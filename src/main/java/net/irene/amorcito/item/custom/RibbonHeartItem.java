@@ -42,7 +42,7 @@ public class RibbonHeartItem extends Item {
 
             double playerMaxHealth = Objects.requireNonNull(pPlayer.getAttribute(MAX_HEALTH)).getValue();
 
-            Objects.requireNonNull(pPlayer.getAttribute(MAX_HEALTH)).setBaseValue(operateItemUsage(playerMaxHealth, pPlayer, pLevel));
+            Objects.requireNonNull(pPlayer.getAttribute(MAX_HEALTH)).setBaseValue(operateItemUsage(playerMaxHealth, pPlayer));
 
             return super.use(pLevel, pPlayer, pUsedHand);
 
@@ -53,7 +53,7 @@ public class RibbonHeartItem extends Item {
         }
     }
 
-    public double operateItemUsage(double currentMaxHealth, Player pPlayer, Level pLevel) {
+    public double operateItemUsage(double currentMaxHealth, Player pPlayer) {
 
         if (currentMaxHealth >= 40.0) {
 
@@ -61,7 +61,7 @@ public class RibbonHeartItem extends Item {
 
         } else {
 
-            pPlayer.getMainHandItem().hurtAndBreak(1, pPlayer, EquipmentSlot.MAINHAND);
+            pPlayer.getMainHandItem().shrink(1);
             return currentMaxHealth + 2.0;
 
         }

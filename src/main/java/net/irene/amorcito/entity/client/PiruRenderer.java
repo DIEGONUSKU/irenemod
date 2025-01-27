@@ -17,7 +17,7 @@ public class PiruRenderer extends MobRenderer<PiruEntity, PiruModel<PiruEntity>>
 
     @Override
     public ResourceLocation getTextureLocation(PiruEntity pEntity) {
-        return ResourceLocation.fromNamespaceAndPath(Amorcito.MODID, "textures/entity/piru.png");
+        return new ResourceLocation(Amorcito.MODID, "textures/entity/piru.png");
     }
 
 

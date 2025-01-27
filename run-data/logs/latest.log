@@ -1,23 +1,27 @@
-[27ene2025 12:13:53.092] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forge_userdev_data, --assetIndex, 17, --assetsDir, C:\Users\diepa\.gradle\caches\forge_gradle\assets, --gameDir, ., --mod, amorcitoid, --all, --output, C:\Users\diepa\IdeaProjects\irenemod\src\generated\resources, --existing, C:\Users\diepa\IdeaProjects\irenemod\src\main\resources]
-[27ene2025 12:13:53.094] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: JVM identified as Amazon.com Inc. OpenJDK 64-Bit Server VM 21.0.6+7-LTS
-[27ene2025 12:13:53.095] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.2.1 starting: java version 21.0.6 by Amazon.com Inc.; OS Windows 10 arch amd64 version 10.0
-[27ene2025 12:13:53.173] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forge_userdev_data
-[27ene2025 12:13:53.249] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=jar:file:///C:/Users/diepa/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.7/8ab114ac385e6dbdad5efafe28aba4df8120915f/mixin-0.8.7.jar!/ Service=ModLauncher Env=UNKNOWN
-[27ene2025 12:13:53.825] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: No dependencies to load found. Skipping!
-[27ene2025 12:13:54.317] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forge_userdev_data' with arguments [--gameDir, ., --assetsDir, C:\Users\diepa\.gradle\caches\forge_gradle\assets, --assetIndex, 17, --mod, amorcitoid, --all, --output, C:\Users\diepa\IdeaProjects\irenemod\src\generated\resources, --existing, C:\Users\diepa\IdeaProjects\irenemod\src\main\resources]
-[27ene2025 12:13:57.986] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 51.0.33, for MC 1.21 with MCP 20240613.102039
-[27ene2025 12:13:57.987] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v51.0.33 Initialized
-[27ene2025 12:13:58.014] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Opening jdk.naming.dns/com.sun.jndi.dns to java.naming
-[27ene2025 12:13:58.423] [main/INFO] [net.minecraftforge.data.loading.DatagenModLoader/]: Initializing Data Gatherer for mods [amorcitoid]
-[27ene2025 12:13:58.471] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/diepa/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.21-51.0.33_mapped_parchment_2024.07.28-1.21/forge-1.21-51.0.33_mapped_parchment_2024.07.28-1.21-recomp.jar%230!/assets/.mcassetsroot' uses unexpected schema
-[27ene2025 12:13:58.471] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/diepa/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.21-51.0.33_mapped_parchment_2024.07.28-1.21/forge-1.21-51.0.33_mapped_parchment_2024.07.28-1.21-recomp.jar%230!/data/.mcassetsroot' uses unexpected schema
-[27ene2025 12:13:58.567] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Loot Tables
-[27ene2025 12:13:58.718] [main/INFO] [net.minecraft.data.DataGenerator/]: Loot Tables finished after 150 ms
-[27ene2025 12:13:58.718] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Item Models: amorcitoid
-[27ene2025 12:13:58.725] [main/INFO] [net.minecraft.data.DataGenerator/]: Item Models: amorcitoid finished after 7 ms
-[27ene2025 12:13:58.726] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Block States: amorcitoid
-[27ene2025 12:13:58.836] [main/INFO] [net.minecraft.data.DataGenerator/]: Block States: amorcitoid finished after 110 ms
-[27ene2025 12:13:58.836] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Registries
-[27ene2025 12:13:58.839] [main/INFO] [net.minecraft.data.DataGenerator/]: Registries finished after 3 ms
-[27ene2025 12:13:58.839] [main/INFO] [net.minecraft.data.DataGenerator/]: All providers took: 272 ms
-[27ene2025 12:13:58.842] [main/INFO] [net.minecraft.data.HashCache/]: Caching: total files: 17, old count: 18, new count: 18, removed stale: 0, written: 2
+[27ene2025 17:05:14.342] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgedatauserdev, --assetIndex, 5, --assetsDir, C:\Users\diepa\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 47.3.0, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --mod, amorcitoid, --all, --output, C:\Users\diepa\IdeaProjects\irenemod\src\generated\resources, --existing, C:\Users\diepa\IdeaProjects\irenemod\src\main\resources]
+[27ene2025 17:05:14.348] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 21.0.6 by Amazon.com Inc.; OS Windows 10 arch amd64 version 10.0
+[27ene2025 17:05:14.439] [main/WARN] [net.minecraftforge.fml.loading.FMLConfig/CORE]: Configuration file C:\Users\diepa\IdeaProjects\irenemod\run-data\config\fml.toml is not correct. Correcting
+[27ene2025 17:05:14.440] [main/INFO] [net.minecraftforge.fml.loading.FMLConfig/CORE]: Incorrect key [earlyWindowLogHelpMessage] was corrected from true to null
+[27ene2025 17:05:14.452] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgedatauserdev
+[27ene2025 17:05:14.487] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/diepa/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23128!/ Service=ModLauncher Env=CLIENT
+[27ene2025 17:05:14.736] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\diepa\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.20.1-47.3.0\d7ebc62120f202109e300e084ca1a31a7b946a62\javafmllanguage-1.20.1-47.3.0.jar is missing mods.toml file
+[27ene2025 17:05:14.738] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\diepa\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.20.1-47.3.0\1bf3e845ea0ce750096da8c71c8364b188ab74d4\lowcodelanguage-1.20.1-47.3.0.jar is missing mods.toml file
+[27ene2025 17:05:14.740] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\diepa\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.20.1-47.3.0\6093682e943ddccbabf70539319d7f2fe64db2e7\mclanguage-1.20.1-47.3.0.jar is missing mods.toml file
+[27ene2025 17:05:14.742] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\diepa\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.20.1-47.3.0\3b6be96aba3e323f3c918e8ef6a96312d82d76ad\fmlcore-1.20.1-47.3.0.jar is missing mods.toml file
+[27ene2025 17:05:14.799] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: No dependencies to load found. Skipping!
+[27ene2025 17:05:15.695] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgedatauserdev' with arguments [--gameDir, ., --assetsDir, C:\Users\diepa\.gradle\caches\forge_gradle\assets, --assetIndex, 5, --mod, amorcitoid, --all, --output, C:\Users\diepa\IdeaProjects\irenemod\src\generated\resources, --existing, C:\Users\diepa\IdeaProjects\irenemod\src\main\resources]
+[27ene2025 17:05:15.934] [main/INFO] [net.minecraftforge.data.loading.DatagenModLoader/]: Initializing Data Gatherer for mods [amorcitoid]
+[27ene2025 17:05:18.718] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 47.3.0, for MC 1.20.1 with MCP 20230612.114412
+[27ene2025 17:05:18.720] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v47.3.0 Initialized
+[27ene2025 17:05:19.153] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/diepa/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.0_mapped_parchment_2023.06.26-1.20.1/forge-1.20.1-47.3.0_mapped_parchment_2023.06.26-1.20.1.jar%23191!/assets/.mcassetsroot' uses unexpected schema
+[27ene2025 17:05:19.154] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/diepa/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.0_mapped_parchment_2023.06.26-1.20.1/forge-1.20.1-47.3.0_mapped_parchment_2023.06.26-1.20.1.jar%23191!/data/.mcassetsroot' uses unexpected schema
+[27ene2025 17:05:19.263] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Loot Tables
+[27ene2025 17:05:19.313] [main/INFO] [net.minecraft.data.DataGenerator/]: Loot Tables finished after 49 ms
+[27ene2025 17:05:19.313] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Item Models: amorcitoid
+[27ene2025 17:05:19.322] [main/INFO] [net.minecraft.data.DataGenerator/]: Item Models: amorcitoid finished after 8 ms
+[27ene2025 17:05:19.322] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Block States: amorcitoid
+[27ene2025 17:05:19.416] [main/INFO] [net.minecraft.data.DataGenerator/]: Block States: amorcitoid finished after 93 ms
+[27ene2025 17:05:19.416] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Registries
+[27ene2025 17:05:19.427] [main/INFO] [net.minecraft.data.DataGenerator/]: Registries finished after 11 ms
+[27ene2025 17:05:19.427] [main/INFO] [net.minecraft.data.DataGenerator/]: All providers took: 165 ms
+[27ene2025 17:05:19.433] [main/INFO] [net.minecraft.data.HashCache/]: Caching: total files: 19, old count: 18, new count: 18, removed stale: 2, written: 2
