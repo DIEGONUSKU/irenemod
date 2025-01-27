@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "minecraft:plains",
+  "spawners": {
+    "type": "amorcitoid:piru",
+    "maxCount": 1,
+    "minCount": 1,
+    "weight": 2
+  }
+}
