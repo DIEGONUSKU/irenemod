@@ -31,6 +31,8 @@ public class DataGenerators {
 
         generator.addProvider(event.includeClient(), new ModBlockStateProvider(packOutput, existingFileHelper));
 
+        generator.addProvider(event.includeServer(), new ModDatapackEntries(packOutput, lookupProvider));
+
         //generator.addProvider(event.includeServer(), new ModEntityTagsProvider(packOutput, lookupProvider));
     }
 }

@@ -26,8 +26,7 @@ public class ModConfiguredFeatures {
 
         register(context, KALANCHOE_KEY, Feature.FLOWER,
                 FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(
-                        BlockStateProvider.simple(ModBlocks.KALANCHOE.get()
-                                .defaultBlockState().setValue(SweetBerryBushBlock.AGE, 3))
+                        BlockStateProvider.simple(ModBlocks.KALANCHOE.get())
                 ), List.of(Blocks.GRASS_BLOCK)));
 
     }
