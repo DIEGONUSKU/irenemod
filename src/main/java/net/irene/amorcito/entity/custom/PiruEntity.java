@@ -92,13 +92,8 @@ public class PiruEntity extends TamableAnimal {
     }
 
     private void setUpAnimationStates() {
-        if(isOrderedToSit()) {
-            this.setPose(Pose.SITTING);
-        } else {
-            this.setPose(Pose.STANDING);
-        }
 
-        if (this.getPose() == Pose.STANDING) {
+        if (!isOrderedToSit()) {
             if(idleAnimationTimeout<= 0) {
                 this.idleAnimationTimeout = this.random.nextInt(40) + 80;
                 this.idleAnimationState.start(this.tickCount);
@@ -129,14 +124,14 @@ public class PiruEntity extends TamableAnimal {
             this.tryToTame(pPlayer);
             return InteractionResult.CONSUME;
         } else if (this.isTame() && isOwnedBy(pPlayer)) {
-            if (this.getPose() == Pose.STANDING) {
+            if (!this.isOrderedToSit()) {
                 breadAnimationState.start(this.tickCount);
-                this.setPose(Pose.SITTING);
             } else {
-                this.setPose(Pose.STANDING);
                 breadAnimationState.stop();
                 unBreadAnimationState.start(this.tickCount);
             }
+            this.navigation.stop();
+            this.setTarget(null);
             setOrderedToSit(!isOrderedToSit());
             return InteractionResult.sidedSuccess(this.level().isClientSide());
 
