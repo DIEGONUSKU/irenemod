@@ -26,11 +26,8 @@ import javax.annotation.Nullable;
 public class PiruEntity extends TamableAnimal {
     public PiruEntity(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.setTame(false);
         this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, -1.0F);
         this.setPathfindingMalus(BlockPathTypes.DANGER_POWDER_SNOW, -1.0F);
-        this.setOrderedToSit(false);
-        this.setPose(Pose.STANDING);
     }
 
     public final WalkAnimationState piruWalkAnimation = new WalkAnimationState();
@@ -66,7 +63,7 @@ public class PiruEntity extends TamableAnimal {
 
     private void setUpAnimationStates() {
 
-        if (this.getPose() == Pose.STANDING) {
+        if (!isOrderedToSit()) {
             if(idleAnimationTimeout<= 0) {
                 this.idleAnimationTimeout = this.random.nextInt(40) + 80;
                 this.idleAnimationState.start(this.tickCount);
@@ -97,18 +94,16 @@ public class PiruEntity extends TamableAnimal {
             this.tryToTame(pPlayer);
             return InteractionResult.CONSUME;
         } else if (this.isTame() && isOwnedBy(pPlayer)) {
+            if (!this.isOrderedToSit()) {
+                breadAnimationState.start(this.tickCount);
+            } else {
+                breadAnimationState.stop();
+                unBreadAnimationState.start(this.tickCount);
+            }
             this.setOrderedToSit(!this.isOrderedToSit());
             this.jumping = false;
             this.navigation.stop();
             this.setTarget((LivingEntity)null);
-            if (this.getPose() == Pose.STANDING) {
-                breadAnimationState.start(this.tickCount);
-                this.setPose(Pose.SITTING);
-            } else {
-                this.setPose(Pose.STANDING);
-                breadAnimationState.stop();
-                unBreadAnimationState.start(this.tickCount);
-            }
             return InteractionResult.SUCCESS;
 
         } else {
@@ -119,7 +114,6 @@ public class PiruEntity extends TamableAnimal {
     //Tame attempt, called when interacting with raw chicken
     private void tryToTame(Player pPlayer) {
         if (this.random.nextInt(3) == 0 && !ForgeEventFactory.onAnimalTame(this, pPlayer)) {
-            this.setPose(Pose.SITTING);
             this.tame(pPlayer);
             this.navigation.stop();
             this.setTarget((LivingEntity)null);
