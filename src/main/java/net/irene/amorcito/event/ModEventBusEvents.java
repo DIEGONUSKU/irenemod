@@ -10,7 +10,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.SpawnPlacementType;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.animal.Animal;
@@ -33,12 +32,6 @@ import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = Amorcito.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModEventBusEvents {
-
-    @SubscribeEvent
-    public static void registerParticleFactories(final RegisterParticleProvidersEvent event) {
-        Minecraft.getInstance().particleEngine.register(ModParticles.HEART_PARTICLES.get(),
-                HeartParticles.Provider::new);
-    }
 
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
