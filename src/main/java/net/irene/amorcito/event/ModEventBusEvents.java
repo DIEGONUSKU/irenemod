@@ -35,12 +35,6 @@ import java.util.Map;
 public class ModEventBusEvents {
 
     @SubscribeEvent
-    public static void registerParticleFactories(final RegisterParticleProvidersEvent event) {
-        Minecraft.getInstance().particleEngine.register(ModParticles.HEART_PARTICLES.get(),
-                HeartParticles.Provider::new);
-    }
-
-    @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
         event.put(ModEntities.PIRU.get(), PiruEntity.createAttributes().build());
     }
