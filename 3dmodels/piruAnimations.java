@@ -1,11 +1,11 @@
 // Save this class in your mod and generate all required imports
 
 /**
- * Made with Blockbench 4.11.2
+ * Made with Blockbench 4.12.2
  * Exported for Minecraft version 1.19 or later with Mojang mappings
  * @author Author
  */
-public class PiruModelAnimation {
+public class piru_1Animation {
 	public static final AnimationDefinition idle = AnimationDefinition.Builder.withLength(2.0F).looping()
 		.addAnimation("Face", new AnimationChannel(AnimationChannel.Targets.POSITION, 
 			new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
@@ -166,6 +166,45 @@ public class PiruModelAnimation {
 		.addAnimation("Tail", new AnimationChannel(AnimationChannel.Targets.POSITION, 
 			new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, -5.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
 			new Keyframe(0.3333F, KeyframeAnimations.posVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+		))
+		.build();
+
+	public static final AnimationDefinition breadMode3 = AnimationDefinition.Builder.withLength(0.3333F).looping()
+		.addAnimation("Face", new AnimationChannel(AnimationChannel.Targets.POSITION, 
+			new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, -5.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+		))
+		.addAnimation("Neck", new AnimationChannel(AnimationChannel.Targets.POSITION, 
+			new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, -5.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+		))
+		.addAnimation("Body", new AnimationChannel(AnimationChannel.Targets.POSITION, 
+			new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, -5.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+		))
+		.addAnimation("LeftBackLeg", new AnimationChannel(AnimationChannel.Targets.ROTATION, 
+			new Keyframe(0.0F, KeyframeAnimations.degreeVec(-90.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+		))
+		.addAnimation("LeftBackLeg", new AnimationChannel(AnimationChannel.Targets.POSITION, 
+			new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, -1.0F, -3.0F), AnimationChannel.Interpolations.LINEAR)
+		))
+		.addAnimation("RightBackLeg", new AnimationChannel(AnimationChannel.Targets.ROTATION, 
+			new Keyframe(0.0F, KeyframeAnimations.degreeVec(-90.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+		))
+		.addAnimation("RightBackLeg", new AnimationChannel(AnimationChannel.Targets.POSITION, 
+			new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, -1.0F, -3.0F), AnimationChannel.Interpolations.LINEAR)
+		))
+		.addAnimation("RightFrontLeg", new AnimationChannel(AnimationChannel.Targets.ROTATION, 
+			new Keyframe(0.0F, KeyframeAnimations.degreeVec(-90.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+		))
+		.addAnimation("RightFrontLeg", new AnimationChannel(AnimationChannel.Targets.POSITION, 
+			new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, -1.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+		))
+		.addAnimation("LeftFrontLeg", new AnimationChannel(AnimationChannel.Targets.ROTATION, 
+			new Keyframe(0.0F, KeyframeAnimations.degreeVec(-90.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+		))
+		.addAnimation("LeftFrontLeg", new AnimationChannel(AnimationChannel.Targets.POSITION, 
+			new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, -1.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+		))
+		.addAnimation("Tail", new AnimationChannel(AnimationChannel.Targets.POSITION, 
+			new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, -5.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
 		))
 		.build();
 }

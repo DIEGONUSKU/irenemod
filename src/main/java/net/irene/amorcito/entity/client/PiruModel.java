@@ -16,9 +16,6 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.Pose;
-import org.jline.utils.Log;
 import org.joml.Vector3f;
 
 public class PiruModel<T extends PiruEntity> extends HierarchicalModel<T> {
@@ -130,9 +127,10 @@ public class PiruModel<T extends PiruEntity> extends HierarchicalModel<T> {
 		//if (entity.getPose() == Pose.STANDING) {
 		this.animateWalk(PiruAnimation.WALK, limbSwing * 3f, limbSwingAmount * 4f, 0.6f, 2f);
 		this.animate(entity.idleAnimationState, PiruAnimation.IDLE, ageInTicks, 1f);
-		this.animate(entity.unBreadAnimationState, PiruAnimation.BREADMODE2, ageInTicks, 1f);
+//		this.animate(entity.standAnimationState, PiruAnimation.BREADMODE2, ageInTicks, 1f);
 		//} else if (entity.getPose() == Pose.SITTING) {
-		this.animate(entity.breadAnimationState, PiruAnimation.BREADMODE, ageInTicks, 1f);
+		this.animate(entity.sitAnimationState, PiruAnimation.BREADMODE, ageInTicks, 1f);
+//		this.animate(entity.staySitAnimationState, PiruAnimation.BREADMODE3, ageInTicks, 1f);
 		//}
 	}
 

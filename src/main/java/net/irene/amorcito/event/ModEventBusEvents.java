@@ -36,20 +36,28 @@ public class ModEventBusEvents {
 
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
+
         event.put(ModEntities.PIRU.get(), PiruEntity.createAttributes().build());
+
     }
 
     @SubscribeEvent
     public void onEntityFinalizeSpawn(MobSpawnEvent.FinalizeSpawn event) {
+
         final Entity entity = event.getEntity();
+
         if (entity instanceof final Creeper creeper) {
+
             creeper.targetSelector.addGoal(3, new AvoidEntityGoal<>(creeper, PiruEntity.class, 6.0F, 1.0D, 1.2D));
+
         }
     }
 
     @SubscribeEvent
     public static void registerSpawnPlacements(SpawnPlacementRegisterEvent event) {
+
         event.register(ModEntities.PIRU.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 Animal::checkAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+
     }
 }
