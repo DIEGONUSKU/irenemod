@@ -30,40 +30,32 @@ import javax.annotation.Nullable;
 
 public class PiruEntity extends TamableAnimal {
     public PiruEntity(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
+        
         super(pEntityType, pLevel);
         this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, -1.0F);
         this.setPathfindingMalus(BlockPathTypes.DANGER_POWDER_SNOW, -1.0F);
-    }
-
-    private static final EntityDataAccessor<Byte> DATA_FLAGS_ID =SynchedEntityData.defineId(PiruEntity.class, EntityDataSerializers.BYTE);
-
-    @Override
-    protected void defineSynchedData() {
-
-        super.defineSynchedData();
-        this.entityData.define(DATA_FLAGS_ID, (byte) 0);
 
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag pCompound) {
+
         super.addAdditionalSaveData(pCompound);
         pCompound.putBoolean("Sitting", this.isOrderedToSit());
+
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag pCompound) {
+
         super.readAdditionalSaveData(pCompound);
         this.setOrderedToSit(pCompound.getBoolean("Sitting"));
+
     }
 
     public final AnimationState sitAnimationState = new AnimationState();
 
-//    public final AnimationState standAnimationState = new AnimationState();
-
     public final AnimationState idleAnimationState = new AnimationState();
-
-//    public final AnimationState staySitAnimationState = new AnimationState();
 
     private int idleAnimationTimeout = 0;
 
@@ -191,12 +183,18 @@ public class PiruEntity extends TamableAnimal {
 
         if (this.random.nextInt(3) == 0 && !ForgeEventFactory.onAnimalTame(this, pPlayer)) {
 
-            this.tame(pPlayer);
-            this.navigation.stop();
-            this.setTarget((LivingEntity)null);
-            this.setOrderedToSit(true);
+            if (!this.level().isClientSide) {
 
-            this.sitOrStand();
+                this.tame(pPlayer);
+                this.navigation.stop();
+                this.setTarget((LivingEntity)null);
+                this.setOrderedToSit(true);
+
+            } else {
+
+                this.sitOrStand();
+
+            }
 
             this.level().broadcastEntityEvent(this, (byte)7);
 
